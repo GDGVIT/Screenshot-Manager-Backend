@@ -1,22 +1,26 @@
 import cv2
 import numpy as np
+
 def buttondetection(image,img):
     def sort_contours(cnts, method="left-to-right"):
         # initialize the reverse flag and sort index
         reverse = False
-        i = 0       
+        i = 0
         # handle if we need to sort in reverse
         if method == "right-to-left" or method == "bottom-to-top":
             reverse = True
         # handle if we are sorting against the y-coordinate rather than
         # the x-coordinate of the bounding box
+
         if method == "top-to-bottom" or method == "bottom-to-top":
             i = 1
         # construct the list of bounding boxes and sort them from top to
         # bottom
+
         boundingBoxes = [cv2.boundingRect(c) for c in cnts]
         (cnts, boundingBoxes) = zip(*sorted(zip(cnts, boundingBoxes),
             key=lambda b:b[1][i], reverse=reverse))
+        
         # return the list of sorted contours and bounding boxes
         return (cnts, boundingBoxes)
 
@@ -61,8 +65,10 @@ def buttondetection(image,img):
         # Sort all the contours by top to bottom.
         (contours, boundingBoxes) = sort_contours(contours, method="top-to-bottom")
         idx = 0
+
         #print("Total Identified: ",len(contours))
         #list1=[]#for storing the x,y,width,height.
+
         for c in contours:
             # Returns the location and width,height for every contour
             x, y, w, h = cv2.boundingRect(c)
@@ -71,25 +77,28 @@ def buttondetection(image,img):
             # If the box height is greater then 20, widht is >80, then only save it as a box image in folder.
             # IMPORTANT ASSUMPTION about how button looks
             if (w > 80 and h > 20 and x!=0 and y!=0) and w > 2.0*h:
-                list2=[]
-                list2.append(x)
-                list2.append(y)
-                list2.append(w)
-                list2.append(h)
+                #If x,y,w,h satisfy the above conditions append it into points
+                points=[]
+                points.append(x)
+                points.append(y)
+                points.append(w)
+                points.append(h)
                 idx += 1
                 #print("Matches rules on H & W",x,y,w,h)
                 #cv2.rectangle(img,(x,y),(x+w,y+h),(0,255,0),2)
-                list1.append(list2)
+                total_points.append(points)
 
-    list1=[]#for storing the x,y,width,height.It is neccessary to store these values as it will be
-            #required for drawing rectangles around paragraphs.
+    total_points=[]#for storing the x,y,width,height.It is neccessary to store these values as it will be
+            #required for drawing rectangles around buttons
     box_extraction(image, "./")
 
-    for i in range(0,len(list1)):
-        list2=list1[i]
+    for i in range(0,len(total_points)):
+        list2=total_points[i]
         cv2.rectangle(img,(list2[0],list2[1]),(list2[0]+list2[2],list2[1]+list2[3]),(0,255,0),2)
         font = cv2.FONT_HERSHEY_SIMPLEX
         cv2.putText(img,'BUTTON'+str(i+1),(list2[0],list2[1]), font, 1,(255,0,0),1)
-    cv2.imshow('image',img)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
+        
+    # UNCOMMENT FOR DEBUGGING
+    # cv2.imshow('image',img)
+    # cv2.waitKey(0)
+    # cv2.destroyAllWindows()

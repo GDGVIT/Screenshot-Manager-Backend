@@ -1,8 +1,5 @@
 import requests
 
-def hi():
-    print('hiii')
-
 def ocr_space_file(filename, overlay=True, api_key='enter_your_key', language='eng'):
     """ OCR.space API request with local file.
         Python3.5 - not tested on 2.7
@@ -20,6 +17,7 @@ def ocr_space_file(filename, overlay=True, api_key='enter_your_key', language='e
     payload = {'isOverlayRequired': overlay,
                'apikey': api_key,
                'language': language,
+               'OCREngine':1
                }
     with open(filename, 'rb') as f:
         r = requests.post('https://api.ocr.space/parse/image',
@@ -48,9 +46,11 @@ def ocr_space_url(url, overlay=False, api_key='0fa8a9fbf988957', language='eng')
                'apikey': api_key,
                'language': language,
                }
+    
     r = requests.post('https://api.ocr.space/parse/image',
                       data=payload,
                       )
+
     return r.content.decode()
 
 
