@@ -1,15 +1,17 @@
-from api import *
 import json
+
 import cv2
 import numpy as np
-from imagedetection import *
-from headerdetection import *
-from paragraphdetection import *
-from buttondetection import *
-from line_detection import *
+
+from utils.ocr_api_fetch import *
+from utils.imagedetection import *
+from utils.headerdetection import *
+from utils.paragraphdetection import *
+from utils.buttondetection import *
+from utils.line_detection import *
 
 #Global Variable for Storing the Image Name. If you want to change the image just change here
-image='screenshot2.jpeg'
+image='Test Images/screenshot2.jpeg'
 
 #THE HEIGHT DICTIONARY STORES THE HEIGHT OF THE HEADER TAGS(H1...H6).HEIGHTS STORES THE VALUES OF THE DICTIONARY
 height={'Header1': 58.0, 'Header2': 44.0, 'Header3': 35.0, 'Header4': 30.0, 'Header5': 24.0, 'Header6': 21.0}
