@@ -2,6 +2,7 @@ import cv2
 import numpy as np
 
 def buttondetection(image,img):
+    
     def sort_contours(cnts, method="left-to-right"):
         # initialize the reverse flag and sort index
         reverse = False
@@ -25,6 +26,7 @@ def buttondetection(image,img):
         return (cnts, boundingBoxes)
 
     def box_extraction(img_for_box_extraction_path, cropped_dir_path):
+        
         img = cv2.imread(img_for_box_extraction_path, 0)  # Read the image
         (thresh, img_bin) = cv2.threshold(img, 128, 255,cv2.THRESH_BINARY | cv2.THRESH_OTSU)  # Thresholding the image
         img_bin = 255-img_bin  # Invert the image
