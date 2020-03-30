@@ -9,6 +9,7 @@ def paragraphdetection(min_top_number,min_top_list,each_line_info,headerrownumbe
         allrowsnumber.append(i)
 
     for i in range(1,min_top_number):
+
         f=min_top_list[i]-min_top_list[i-1]
         diff.append(abs(f))
     #print("length of diff is",len(diff))

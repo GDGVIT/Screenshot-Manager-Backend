@@ -3,6 +3,7 @@ import cv2
 def headerdetection(max_height_list,lowerlimit,upperlimit,min_top_list,image_shape,img):
     header_coordinates=[]
     #for classifying some part of the image as header we had defined upper limit and lower limit 
+
     #if the i th row's height falls in between this range(by checking with help of max_height_list)
     #we append it to headerrownumber list
     headerrownumber=[]
@@ -42,9 +43,11 @@ def headerdetection(max_height_list,lowerlimit,upperlimit,min_top_list,image_sha
         each_header_coordinates.append((0,mintop1))
         each_header_coordinates.append((width,maxheight))
         header_coordinates.append(each_header_coordinates)
+
     # UNCOMMENT FOR DEBUGGING
     # cv2.imshow('image',img)
     # cv2.waitKey(0)
     # cv2.destroyAllWindows()
     
     return [headerrownumber,header_coordinates]
+

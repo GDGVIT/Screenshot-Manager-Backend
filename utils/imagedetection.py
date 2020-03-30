@@ -2,6 +2,7 @@ import numpy as np
 import cv2
 
 def imagedetection(image_shape,img):
+    
     image_coordinates=[]
     height=image_shape[0]
     width=image_shape[1]
@@ -29,6 +30,7 @@ def imagedetection(image_shape,img):
                     datainRow=True
                     break;   
 
+
         if(datainRow):
             dataRows.append(i)
             
@@ -43,6 +45,7 @@ def imagedetection(image_shape,img):
     #print('iranges',iranges)
 
     #list_of_ranges stores two consecutive numbers of iranges as they specify the upper bound and 
+
     #lower bound of one box.
     list_of_ranges=[]
 
@@ -54,6 +57,7 @@ def imagedetection(image_shape,img):
     #print("list_of_ranges",list_of_ranges)
     
     #image_box stores the upper row number and lower row number(which satisfies a condition) of 
+
     # a box for drawing the rectangle
     image_box=[]
 
@@ -70,12 +74,14 @@ def imagedetection(image_shape,img):
     if(len(image_box)>1):
 
         for i in range(0,len(image_box)):
+
             each_image_coordinate=[]
             #ex4 contains the rows number about which rectangle should be drawn
             ex4=image_box[i]
             cv2.rectangle(img,(0,ex4[0]),(image_shape[0],ex4[1]),(255,0,0),2)
             font =cv2.FONT_HERSHEY_SIMPLEX
             cv2.putText(img,'IMAGE'+str(i+1),(0,ex4[0]), font, 1,(255,0,0),1)
+
             each_image_coordinate.append((0,ex4[0]))
             each_image_coordinate.append((image_shape[0],ex4[1]))
         image_coordinates.append(each_image_coordinate)
@@ -83,6 +89,7 @@ def imagedetection(image_shape,img):
     elif len(image_box)==1:
         #ex5 contains the rows number about which rectangle should be drawn
         each_image_coordinate=[]
+
         ex5=image_box[0]
         cv2.rectangle(img,(0,ex5[0]),(image_shape[0],ex5[1]),(255,0,0),2)
         font =cv2.FONT_HERSHEY_SIMPLEX
@@ -90,9 +97,10 @@ def imagedetection(image_shape,img):
         each_image_coordinate.append((0,ex5[0]))
         each_image_coordinate.append((image_shape[0],ex5[1]))
         image_coordinates.append(each_image_coordinate)
+
     #UNCOMMENT FOR DEBUGGING
     # cv2.imshow('image',img)
     # cv2.waitKey(0)
     # cv2.destroyAllWindows()
-
     return image_coordinates
+

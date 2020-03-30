@@ -7,6 +7,7 @@ def buttondetection(img):
         # initialize the reverse flag and sort index
         reverse = False
         i = 0       
+
         # handle if we need to sort in reverse
         if method == "right-to-left" or method == "bottom-to-top":
             reverse = True
@@ -27,6 +28,7 @@ def buttondetection(img):
 
     def box_extraction(image_data):
         img = cv2.cvtColor(image_data, cv2.COLOR_BGR2GRAY)  # Read the image
+
         (thresh, img_bin) = cv2.threshold(img, 128, 255,cv2.THRESH_BINARY | cv2.THRESH_OTSU)  # Thresholding the image
         img_bin = 255-img_bin  # Invert the image
     
@@ -95,6 +97,7 @@ def buttondetection(img):
 
     for i in range(0,len(total_points)):
         each_button_coordinate=[]
+
         list2=total_points[i]
         cv2.rectangle(img,(list2[0],list2[1]),(list2[0]+list2[2],list2[1]+list2[3]),(0,255,0),2)
         font = cv2.FONT_HERSHEY_SIMPLEX
@@ -102,6 +105,7 @@ def buttondetection(img):
         each_button_coordinate.append((list2[0],list2[1]))
         each_button_coordinate.append((list2[0]+list2[2],list2[1]+list2[3]))
         button_cordinates.append(each_button_coordinate)
+
         
     # UNCOMMENT FOR DEBUGGING
     # cv2.imshow('image',img)
@@ -109,3 +113,4 @@ def buttondetection(img):
     # cv2.destroyAllWindows()
     #print("The cordinates for buttons are",button_cordinates)
     return button_cordinates
+

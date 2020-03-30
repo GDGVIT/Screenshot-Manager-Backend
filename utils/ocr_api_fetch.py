@@ -1,6 +1,7 @@
 import requests
 
 def ocr_space_file(filename, overlay=True, api_key='enter_your_key', language='eng'):
+    
     """ OCR.space API request with local file.
         Python3.5 - not tested on 2.7
     :param filename: Your file path & name.
@@ -28,6 +29,7 @@ def ocr_space_file(filename, overlay=True, api_key='enter_your_key', language='e
 
 
 def ocr_space_url(url, overlay=False, api_key='0fa8a9fbf988957', language='eng'):
+    
     """ OCR.space API request with remote file.
         Python3.5 - not tested on 2.7
     :param url: Image url.
