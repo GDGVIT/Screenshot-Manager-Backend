@@ -1,12 +1,13 @@
 import cv2
 import numpy as np
 
-def buttondetection(image,img):
-    
+def buttondetection(img):
+    button_cordinates=[]
     def sort_contours(cnts, method="left-to-right"):
         # initialize the reverse flag and sort index
         reverse = False
-        i = 0
+        i = 0       
+
         # handle if we need to sort in reverse
         if method == "right-to-left" or method == "bottom-to-top":
             reverse = True
@@ -25,9 +26,9 @@ def buttondetection(image,img):
         # return the list of sorted contours and bounding boxes
         return (cnts, boundingBoxes)
 
-    def box_extraction(img_for_box_extraction_path, cropped_dir_path):
-        
-        img = cv2.imread(img_for_box_extraction_path, 0)  # Read the image
+    def box_extraction(image_data):
+        img = cv2.cvtColor(image_data, cv2.COLOR_BGR2GRAY)  # Read the image
+
         (thresh, img_bin) = cv2.threshold(img, 128, 255,cv2.THRESH_BINARY | cv2.THRESH_OTSU)  # Thresholding the image
         img_bin = 255-img_bin  # Invert the image
     
@@ -92,15 +93,24 @@ def buttondetection(image,img):
 
     total_points=[]#for storing the x,y,width,height.It is neccessary to store these values as it will be
             #required for drawing rectangles around buttons
-    box_extraction(image, "./")
+    box_extraction(img)
 
     for i in range(0,len(total_points)):
+        each_button_coordinate=[]
+
         list2=total_points[i]
         cv2.rectangle(img,(list2[0],list2[1]),(list2[0]+list2[2],list2[1]+list2[3]),(0,255,0),2)
         font = cv2.FONT_HERSHEY_SIMPLEX
         cv2.putText(img,'BUTTON'+str(i+1),(list2[0],list2[1]), font, 1,(255,0,0),1)
+        each_button_coordinate.append((list2[0],list2[1]))
+        each_button_coordinate.append((list2[0]+list2[2],list2[1]+list2[3]))
+        button_cordinates.append(each_button_coordinate)
+
         
     # UNCOMMENT FOR DEBUGGING
     # cv2.imshow('image',img)
     # cv2.waitKey(0)
     # cv2.destroyAllWindows()
+    #print("The cordinates for buttons are",button_cordinates)
+    return button_cordinates
+
